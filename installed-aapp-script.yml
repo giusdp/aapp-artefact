@@ -1,0 +1,50 @@
+- default:
+    - workers: "*"
+      strategy: random
+
+- impera:
+    - workers:
+        - workereu1
+        - workereu2
+        - workereu3
+        - workerus1
+        - workerus2
+        - workerus3
+      strategy: random
+      affinity:
+        - "divide"
+        - "!heavy_eu"
+        - "!heavy_us"
+
+- divide:
+    - workers:
+        - workereu1
+        - workereu2
+        - workereu3
+        - workerus1
+        - workerus2
+        - workerus3
+      strategy: random
+      affinity:
+        - "impera"
+        - "!heavy_eu"
+        - "!heavy_us"
+    - workers:
+        - workereu1
+        - workereu2
+        - workereu3
+        - workerus1
+        - workerus2
+        - workerus3
+      strategy: random
+      affinity:
+        - "!heavy_eu"
+        - "!heavy_us"
+
+- heavy_eu:
+    - workers:
+        - workereu1
+
+- heavy_us:
+    - workers:
+        - workerus1
